@@ -1,0 +1,8 @@
+¿Qué se tiene que hacer?
+El proyecto consiste en construir 3 aplicaciones independientes que se comunican entre sí:
+
+Backend (API RESTful): Un servidor en Node.js con Express y Prisma que gestionará la base de datos (usuarios, publicaciones y comentarios) y protegerá ciertas rutas mediante JWT (JSON Web Tokens).
+
+Frontend para Lectores: Una aplicación web (Usar NExtjs) donde cualquier usuario puede leer posts públicos y dejar comentarios.
+
+Frontend para el Autor: Una aplicación web privada (protegida por autenticación JWT con react vite) exclusiva para ti, donde podrás crear, editar, publicar/despublicar posts y moderar comentarios.

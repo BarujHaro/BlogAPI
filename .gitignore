@@ -1,0 +1,4 @@
+./backend/.env
+./backend/install.txt
+
+node_modules

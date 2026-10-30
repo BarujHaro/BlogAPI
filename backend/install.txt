@@ -1,0 +1,15 @@
+npm init -y
+npm install passport-jwt jsonwebtoken
+npm install express dotenv
+npm install express-validator
+npm install express-rate-limit
+
+npm install prisma@^7.10.1 @prisma/client@^7.10.1 --save
+npx prisma migrate dev --name init_user_model
+
+ 
+
+
+postgres=# CREATE DATABASE BlogDBs;
+postgres=# CREATE USER Blog_users WITH ENCRYPTED PASSWORD 'BlogP4ss1234';
+postgres=# GRANT ALL PRIVILEGES ON DATABASE BlogDBs TO Blog_users;
