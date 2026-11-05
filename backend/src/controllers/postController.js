@@ -36,7 +36,7 @@ export const deletePost = async (req, res) => {
     try{
         const {id} = req.params;
 
-        const deletedPost = await prisma.postdelte({
+        const deletedPost = await prisma.post.delete({
             where:{
                 id: Number(id)
             }
