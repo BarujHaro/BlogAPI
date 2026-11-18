@@ -2,6 +2,16 @@ import request from 'supertest';
 import express from 'express';
 import postRouter from '../routes/postRoutes.js'; 
 import prisma from '../db/db.js';
+import passport from '../config/passport.js';
+
+jest.mock('../config/passport.js', () => ({
+    ...jest.requireActual('../config/passport.js'),
+    authenticate: () => (req, res, next) => {
+        req.user = { id: 1, username: 'testuser' };
+        next();
+    },
+}));
+
 
 jest.mock('../db/db.js', () => ({
     __esModule: true,
@@ -9,6 +19,7 @@ jest.mock('../db/db.js', () => ({
         post: {
             findMany: jest.fn(),
             create: jest.fn(),
+            update: jest.fn(),
             delete: jest.fn(),
         },
     },
@@ -56,8 +67,8 @@ describe('Post controller & routes', () => {
 
     describe('POST /api/posts createposts', () => {
         it('It should create a post 201', async () => {
-            const nuevoPostData = {title: 'Nuevo post', content: 'Texto de prueba', authorId: 1 };
-            const postCreado = { id: 1, ...nuevoPostData, published: false };
+            const nuevoPostData = {title: 'Nuevo post', content: 'Texto de prueba'};
+            const postCreado = { id: 1, ...nuevoPostData, published: false, authorId: 1  };
 
             prisma.post.create.mockResolvedValue(postCreado);
 
@@ -68,6 +79,11 @@ describe('Post controller & routes', () => {
             expect(res.statusCode).toEqual(201);
             expect(res.body).toHaveProperty('id', 1);
             expect(res.body.title).toEqual('Nuevo post');
+            expect(prisma.post.create).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    data: expect.objectContaining({ authorId: 1 })
+                })
+            );
         });
     });
 

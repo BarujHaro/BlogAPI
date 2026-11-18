@@ -5,7 +5,7 @@ import passport from 'passport';
 const router = express.Router();
 import * as authController from '../controllers/authController.js';
 
-router.post('/sign-up', authController.createUser);
+router.post('/register', authController.createUser);
 router.post('/login', authController.loginUser)
 router.get('/profile', passport.authenticate("jwt", {session: false}), authController.getUser);
 router.put('/profile/:id', passport.authenticate("jwt", { session: false }), authController.updateProfile);

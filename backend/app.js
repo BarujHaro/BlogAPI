@@ -24,7 +24,7 @@ app.use(cors({
       const msg = 'The server does not allow the access from this origin';
       return callback(new Error(msg), false);
     }
-    returncallback(null, true);
+    return callback(null, true);
   },
   credentials: true
 }));

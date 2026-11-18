@@ -50,3 +50,18 @@ export const deleteComment = async (req, res) => {
     }
 };
  
+
+export const getAllCommentsForAdmin = async (req, res) => {
+    try {
+        const comments = await prisma.comment.findMany({  
+            include: {
+                author: { select: { username: true } },
+                post: { select: { title: true } }  
+            },
+            orderBy: { createdAt: 'desc' }
+        });
+        res.json(comments);
+    } catch (error) {
+        res.status(500).json({ error: 'Error obtaining comments' });
+    }
+};
